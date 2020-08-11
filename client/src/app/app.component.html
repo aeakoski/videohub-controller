@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <h2>Src</h2>
+  </div>
+  <div class="row source">
+    <button *ngFor="let name of src_buttons; let src_ndx = index" [class.selected]="name == lastSelectedSrcBtn" (click)="onSelectSrc(name, src_ndx)" type="button" class="btn btn-primary">{{name}}</button>
+  </div>
+  <hr>
+  <div class="row">
+    <h2>Dst</h2>
+  </div>
+  <div class="row destination">
+    <button *ngFor="let name of dst_buttons; let dst_ndx = index" [class.selected]="name == lastSelectedDstBtn" (click)="onSelectDst(name, dst_ndx)" type="button" class="btn btn-secondary">{{name}}</button>
+  </div>
+  <hr>
+
+</div>
