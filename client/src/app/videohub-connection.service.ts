@@ -13,9 +13,13 @@ export class VideohubConnectionService {
     private http: HttpClient
   ) { }
 
+  reconnect(){
+    this.http.get(`/api/reconnect`);
+  }
+
   changeRoute(src: number, dst: number){
     console.log(src, dst);
-    return this.http.get("http://localhost:4808");
+    return this.http.get(`/api/set?src=${src}&dst=${dst}`);
 
   }
 }

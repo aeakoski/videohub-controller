@@ -42,4 +42,8 @@ export class AppComponent {
       .subscribe((data)=>{console.log(data);});
   }
 
+  onReconnect(){
+    this.router.reconnect()
+  }
+
 }
