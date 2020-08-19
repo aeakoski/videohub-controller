@@ -12,9 +12,5 @@
   <div class="row destination">
     <button *ngFor="let name of dst_buttons; let dst_ndx = index" [class.selected]="name == lastSelectedDstBtn" (click)="onSelectDst(name, dst_ndx)" type="button" class="btn btn-secondary">{{name}}</button>
   </div>
-  <hr>
-  <div class="row">
-    <button (click)="onReconnect()" type="button" class="btn btn-secondary">Reconnect</button>
-  </div>
 
 </div>

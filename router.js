@@ -10,9 +10,7 @@ module.exports = Router;
 
 function Router(opts) {
   this.opts = opts || {};
-
   this.connection = null;
-
   this.connecting = false;
   this.connected = false;
 
@@ -38,15 +36,10 @@ util.inherits(Router, events.EventEmitter);
  *  @returns {Object}
  */
 
-Router.prototype.connect = function(host, port) {
+Router.prototype.connect = async function(host, port) {
   if (this.connecting) return this.connection;
-
-  if (host) this.opts.host = host;
-  if (port) this.opts.host = host;
-
   if (!this.opts.host) throw new Error('Must supply host name in constructor or this method');
   if (!this.opts.port) throw new Error('Must supply port in constructor or this method');
-
   this.connection = net.createConnection(this.opts.port, this.opts.host);
   return this.connection;
 };
@@ -54,7 +47,17 @@ Router.prototype.connect = function(host, port) {
 Router.prototype.route = function(output, input) {
   var str = ['VIDEO OUTPUT ROUTING:', output+' '+input].join('\n');
   str += '\n\n';
-  this.connection.write(str);
+  this.connection.write(str, async (res)=>{
+    await new Promise(r => setTimeout(r, 5000));
+    this.disconnect();
+  });
+  return true;
+};
 
+Router.prototype.disconnect = function() {
+  if(this.connection.destroyed){
+    return;
+  }
+  this.connection.destroy();
   return true;
 };
